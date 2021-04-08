@@ -30,3 +30,5 @@ $item = Item::get(Item::STICK); //Use stick for example
 $item->setCustomName("Custom Pickaxe");
 CustomBreakTimeAPI::register(new TestItem($item));
 ```
+# Note
+* This plugin is under development.
