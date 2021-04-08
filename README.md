@@ -20,7 +20,7 @@ class TestItem extends BaseBreakTime
         $item = Item::get(Item::DIAMOND_PICKAXE);
         $ench = Enchantment::getEnchantment(Enchantment::EFFICIENCY)
         $item->addEnchantment(new EnchantmentInstance($ench, 1));
-        return $block->getBreakTime($item);
+        return $block->getBreakTime($item); //Set break time like efficiency I diamond pick
     }
 }
 ```
