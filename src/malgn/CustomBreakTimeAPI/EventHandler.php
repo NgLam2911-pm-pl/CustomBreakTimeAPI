@@ -1,18 +1,22 @@
 <?php
 
-namespace NgLamVN\CustomBreakTimeAPI;
+namespace malgn\CustomBreakTimeAPI;
 
-use malgn\CustomBreakTimeAPI\CustomBreakTimeAPI;
 use pocketmine\event\Listener;
+use pocketmine\event\server\DataPacketReceiveEvent;
+use pocketmine\math\Vector3;
+use pocketmine\network\mcpe\protocol\PlayerActionPacket;
 
 class EventHandler implements Listener
 {
     /** @var CustomBreakTimeAPI $api */
     public $api;
+    /** @var BreakTask[] */
+    protected $task = [];
 
-    public function __construct(CustomBreakTimeAPI $API)
+    public function __construct(CustomBreakTimeAPI $api)
     {
-        $this->api = $API;
+        $this->api = $api;
     }
 
     public function getAPI(): CustomBreakTimeAPI
@@ -24,15 +28,26 @@ class EventHandler implements Listener
     {
         $player = $event->getPlayer();
         $packet = $event->getPacket();
-
         if ($packet instanceof PlayerActionPacket)
         {
             switch ($packet->action)
             {
                 case PlayerActionPacket::ACTION_START_BREAK:
+                    $item = $player->getInventory()->getItemInHand();
+                    $basetime = CustomBreakTimeAPI::getBaseBreakTime($item);
+                    if ($basetime == null) return;
+                    $pos = new Vector3($packet->x, $packet->y, $packet->z);
+                    $block = $player->getLevelNonNull()->getBlock($pos);
+                    $time = $basetime->getBreakTime($block);
+                    $this->getAPI()->setBreakStatus($player, true);
+                    $this->task[$player->getName()] = new BreakTask($player, $pos, $this->getAPI());
+                    $this->getAPI()->getScheduler()->scheduleDelayedTask($this->task[$player->getName()], $time);
                     break;
                 case PlayerActionPacket::ACTION_ABORT_BREAK:
                 case PlayerActionPacket::ACTION_STOP_BREAK:
+                    $this->getAPI()->setBreakStatus($player, false);
+                    if (isset($this->task[$player->getName()]))
+                    $this->task[$player->getName()]->cancel();
                     break;
             }
         }
