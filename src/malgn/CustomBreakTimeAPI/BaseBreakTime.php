@@ -7,18 +7,17 @@ use pocketmine\item\Item;
 
 abstract class BaseBreakTime
 {
-    /** @var Item $item */
-    protected $item;
+    /** @var string $name */
+    protected $name;
 
     /**
      * BaseBreakTime constructor.
      * @param Item $item
      */
-    public function __construct(Item $item)
+    public function __construct(string $name)
     {
-        $this->item = $item;
+        $this->name = $name;
     }
-
     /**
      * Return break time when break a block
      * @param Block $block
@@ -28,9 +27,12 @@ abstract class BaseBreakTime
     {
         return 0;
     }
-
-    public function getItem(): Item
+    /**
+     * @return string
+     * Return name of Base break time config
+     */
+    public function getName(): string
     {
-        return $this->item;
+        return $this->name;
     }
 }
