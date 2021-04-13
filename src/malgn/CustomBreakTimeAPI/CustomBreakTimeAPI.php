@@ -28,24 +28,22 @@ class CustomBreakTimeAPI extends PluginBase
 
     public static function register(BaseBreakTime $baseBreakTime)
     {
-        $item = $baseBreakTime->getItem();
-        self::$data[self::ItemToData($item)] = $baseBreakTime;
+        $name = $baseBreakTime->getName();
+        if (isset(self::$data[$name])) throw new \Exception("A BaseBreakTime config with that name aldready registered !");
+        self::$data[$name] = $baseBreakTime;
     }
 
     public static function getBaseBreakTime(Item $item): ?BaseBreakTime
     {
-        if (isset(self::$data[self::ItemToData($item)]))
+        $nbt = $item->getNamedTag();
+        if (!$nbt->hasTag("basebreaktime")) return null;
+        $config = $nbt->getString("basebreaktime");
+
+        if (isset(self::$data[$config]))
         {
-            return self::$data[self::ItemToData($item)];
+            return self::$data[$config];
         }
         else return null;
-    }
-
-    public static function ItemToData(Item $item)
-    {
-        $nbt = $item->nbtSerialize();
-        $edian = new BigEndianNBTStream();
-        return bin2hex($edian->writeCompressed($nbt));
     }
 
     public function onEnable()
