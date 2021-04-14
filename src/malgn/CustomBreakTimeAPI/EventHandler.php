@@ -3,6 +3,7 @@
 namespace malgn\CustomBreakTimeAPI;
 
 use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\PlayerActionPacket;
@@ -50,6 +51,14 @@ class EventHandler implements Listener
                     $this->task[$player->getName()]->cancel();
                     break;
             }
+        }
+    }
+
+    public function onInteract(PlayerInteractEvent $event)
+    {
+        if ($event->isCancelled())
+        {
+            $this->getAPI()->setBreakStatus($event->getPlayer(), false);
         }
     }
 }

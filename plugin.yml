@@ -4,5 +4,5 @@ api: 3.18.0
 mcpe-protocols:
   - 428
   - 431
-version: 0.2
+version: 0.2.1
 author: NgLamVN

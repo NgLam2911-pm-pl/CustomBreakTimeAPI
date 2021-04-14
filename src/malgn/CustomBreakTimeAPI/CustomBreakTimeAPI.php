@@ -49,6 +49,5 @@ class CustomBreakTimeAPI extends PluginBase
     public function onEnable()
     {
         $this->getServer()->getPluginManager()->registerEvents(new EventHandler($this), $this);
-        /*new Test();*/
     }
 }
