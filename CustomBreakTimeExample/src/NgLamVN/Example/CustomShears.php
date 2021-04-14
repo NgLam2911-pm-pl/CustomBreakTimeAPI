@@ -10,14 +10,15 @@ use pocketmine\Player;
 
 class CustomShears extends BaseBreakTime
 {
-    public function getBreakTime(Block $block)
+    public function getBreakTime(Block $block, Item $itemuse)
     {
         switch ($block->getId())
         {
             case Block::WOOL:
+                return 4;
             case Block::GLASS:
             case Block::LEAVES:
-                return 5;
+                return 1;
             default:
                 return 999999; //Give break time handle to client.
         }

@@ -25,7 +25,7 @@ abstract class BaseBreakTime
      * @param Block $block
      * @return int
      */
-    public function getBreakTime(Block $block)
+    public function getBreakTime(Block $block, Item $itemuse)
     {
         return 0;
     }
