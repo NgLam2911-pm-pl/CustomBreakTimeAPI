@@ -20,12 +20,14 @@ abstract class BaseBreakTime
     {
         $this->name = $name;
     }
+
     /**
-     * Return break time when break a block
      * @param Block $block
+     * @param Item $itemuse
+     * @param Player $player
      * @return int
      */
-    public function getBreakTime(Block $block, Item $itemuse)
+    public function getBreakTime(Block $block, Item $itemuse, Player $player)
     {
         return 0;
     }

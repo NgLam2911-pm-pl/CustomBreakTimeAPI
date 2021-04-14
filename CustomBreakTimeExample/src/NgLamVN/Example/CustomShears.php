@@ -10,7 +10,7 @@ use pocketmine\Player;
 
 class CustomShears extends BaseBreakTime
 {
-    public function getBreakTime(Block $block, Item $itemuse)
+    public function getBreakTime(Block $block, Item $itemuse, Player $player)
     {
         switch ($block->getId())
         {

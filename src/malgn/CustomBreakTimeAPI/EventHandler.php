@@ -44,7 +44,7 @@ class EventHandler implements Listener
                     if ($basetime == null) return;
                     $pos = new Vector3($packet->x, $packet->y, $packet->z);
                     $block = $player->getLevelNonNull()->getBlock($pos);
-                    $time = $basetime->getBreakTime($block, $item);
+                    $time = $basetime->getBreakTime($block, $item, $player);
                     $this->getAPI()->setBreakStatus($player, true);
                     $this->task[$player->getName()] = new BreakTask($player, $pos, $this->getAPI());
                     $this->getAPI()->getScheduler()->scheduleDelayedTask($this->task[$player->getName()], $time);
