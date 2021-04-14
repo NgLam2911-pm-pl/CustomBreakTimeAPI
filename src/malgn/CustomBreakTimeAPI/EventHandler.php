@@ -7,6 +7,7 @@ use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\server\DataPacketReceiveEvent;
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\PlayerActionPacket;
+use pocketmine\network\mcpe\protocol\types\GameMode;
 
 class EventHandler implements Listener
 {
@@ -28,6 +29,10 @@ class EventHandler implements Listener
     public function onRecieve (DataPacketReceiveEvent $event)
     {
         $player = $event->getPlayer();
+        if ($player->getGamemode() !== GameMode::SURVIVAL)
+        {
+            return;
+        }
         $packet = $event->getPacket();
         if ($packet instanceof PlayerActionPacket)
         {
