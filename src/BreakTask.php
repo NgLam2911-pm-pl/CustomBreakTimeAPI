@@ -37,6 +37,6 @@ class BreakTask extends Task{
 	}
 
 	public function cancel(){
-		$this->getHandler()->cancel();
+		$this->getHandler()?->cancel();
 	}
 }

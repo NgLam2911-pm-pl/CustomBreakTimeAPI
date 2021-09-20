@@ -34,7 +34,7 @@ class CustomBreakTimeAPI extends PluginBase{
 
 	public static function getBaseBreakTime(Item $item) : ?BaseBreakTime{
 		$nbt = $item->getNamedTag();
-		if(!$nbt->getTag("basebreaktime") == null) return null;
+		if($nbt->getTag("basebreaktime") == null) return null;
 		$config = $nbt->getString("basebreaktime");
 
 		return self::$data[$config] ?? null;
