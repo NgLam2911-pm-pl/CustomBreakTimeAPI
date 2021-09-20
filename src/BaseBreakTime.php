@@ -1,52 +1,52 @@
 <?php
+declare(strict_types=1);
 
-namespace malgn\CustomBreakTimeAPI;
+namespace NgLamVN\CustomBreakTimeAPI;
 
 use pocketmine\block\Block;
 use pocketmine\item\Item;
 use pocketmine\math\Vector3;
-use pocketmine\Player;
+use pocketmine\player\Player;
 
-abstract class BaseBreakTime
-{
-    /** @var string $name */
-    protected $name;
+abstract class BaseBreakTime{
+	/** @var string $name */
+	protected string $name;
 
-    /**
-     * BaseBreakTime constructor.
-     * @param Item $item
-     */
-    public function __construct(string $name)
-    {
-        $this->name = $name;
-    }
+	/**
+	 * BaseBreakTime constructor.
+	 *
+	 * @param string $name
+	 */
+	public function __construct(string $name){
+		$this->name = $name;
+	}
 
-    /**
-     * @param Block $block
-     * @param Item $itemuse
-     * @param Player $player
-     * @return int
-     */
-    public function getBreakTime(Block $block, Item $itemuse, Player $player)
-    {
-        return 0;
-    }
-    /**
-     * @return string
-     * Return name of Base break time config
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
+	/**
+	 * @param Block  $block
+	 * @param Item   $itemuse
+	 * @param Player $player
+	 *
+	 * @return int
+	 */
+	public function getBreakTime(Block $block, Item $itemuse, Player $player) : int{
+		return 0;
+	}
 
-    /**
-     * @param Vector3 $pos
-     * @param Player $player
-     * @param Item $item
-     */
-    public function onBreak(Vector3 $pos, Player $player, Item $item)
-    {
-        $player->getLevelNonNull()->useBreakOn($pos, $item, $player, true);
-    }
+	/**
+	 * @return string
+	 * Return name of Base break time config
+	 */
+	public function getName() : string{
+		return $this->name;
+	}
+
+	/**
+	 * @param Vector3 $pos
+	 * @param Item    $item
+	 * @param Player  $player
+	 * @param bool    $createParticles
+	 */
+	public function onBreak(Vector3 $pos, Item $item, Player $player, bool $createParticles = true){
+		$player->getWorld()->useBreakOn($pos, $item, $player, $createParticles);
+	}
 }
