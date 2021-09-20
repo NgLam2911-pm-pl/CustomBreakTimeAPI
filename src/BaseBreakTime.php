@@ -28,8 +28,12 @@ abstract class BaseBreakTime{
 	 *
 	 * @return int
 	 */
-	public function getBreakTime(Block $block, Item $itemuse, Player $player) : int{
+	protected function getBreakTime(Block $block, Item $itemuse, Player $player) : int{
 		return 0;
+	}
+
+	public function reCaculateBreakTime(Block $block, Item $itemuse, Player $player): int{
+		return $this->getBreakTime($block, $itemuse, $player);
 	}
 
 	/**
