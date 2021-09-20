@@ -1,8 +1,7 @@
 name: CustomBreakTimeAPI
-main: malgn\CustomBreakTimeAPI\CustomBreakTimeAPI
-api: 3.18.0
+main: NgLamVN\CustomBreakTimeAPI\CustomBreakTimeAPI
+api: 4.0.0
 mcpe-protocols:
-  - 428
-  - 431
-version: 0.2.1
+  - 448
+version: 0.3.0
 author: NgLamVN
